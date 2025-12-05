@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elias Bielskis | Cloud Solutions Architect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* --- Background Animation/Video --- */
+        #bg-video {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.6;
+        }
+        
+        #canvas-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.85); /* Dark tint */
+            z-index: -1;
+            backdrop-filter: blur(2px);
+        }
+
+        /* --- Glassmorphism Cards --- */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Scroll Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Carousel --- */
+        .carousel-fade {
+            animation: fadeEffect 1s;
+        }
+        @keyframes fadeEffect {
+            from {opacity: 0.4;}
+            to {opacity: 1;}
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF9900; }
+
+        /* --- AWS Gradient Text --- */
+        .text-gradient {
+            background: linear-gradient(135deg, #FF9900 0%, #FFC400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- VIDEO BACKGROUND PLACEHOLDER (Uncomment to use real video) -->
+    <!-- <video autoplay muted loop id="bg-video">
+        <source src="your-cloud-video.mp4" type="video/mp4">
+    </video> -->
+
+    <!-- CANVAS FALLBACK ANIMATION (Simulating Cloud Nodes) -->
+    <canvas id="canvas-bg"></canvas>
+    
+    <!-- DARK OVERLAY -->
+    <div class="overlay"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10 container mx-auto px-6 py-12 max-w-6xl">
+
+        <!-- NAV -->
+        <nav class="flex justify-between items-center mb-20 reveal">
+            <div class="text-2xl font-bold tracking-tighter">EB<span class="text-[#FF9900]">.</span></div>
+            <div class="space-x-8 hidden md:block text-sm font-semibold tracking-wide text-slate-400">
+                <a href="#about" class="hover:text-white transition">ABOUT</a>
+                <a href="#skills" class="hover:text-white transition">SKILLS</a>
+                <a href="#projects" class="hover:text-white transition">PROJECTS</a>
+                <a href="#certs" class="hover:text-white transition">CERTS</a>
+                <a href="#contact" class="text-[#FF9900] hover:text-[#FFC400] transition">GET IN TOUCH</a>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <header class="min-h-[70vh] flex flex-col justify-center items-start reveal">
+            <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-[#FF9900] border border-[#FF9900] rounded-full bg-[#FF9900]/10">
+                AWS CERTIFIED
+            </div>
+            <h1 class="text-6xl md:text-8xl font-extrabold leading-tight mb-6">
+                Hello, I'm <br>
+                <span class="text-gradient">Elias Bielskis</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-400 max-w-2xl leading-relaxed mb-8">
+                Computer Science Student & Aspiring <span class="text-white">Cloud Solutions Architect</span>. 
+                Building the future on AWS, one minimalist solution at a time.
+            </p>
+            <a href="#projects" class="group glass px-8 py-3 rounded-full font-bold transition hover:scale-105 flex items-center gap-2">
+                View Projects 
+                <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </header>
+
+        <!-- ABOUT & CAROUSEL -->
+        <section id="about" class="mb-32 scroll-mt-20">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <h2 class="text-4xl font-bold mb-6 border-l-4 border-[#FF9900] pl-4">About Me</h2>
+                    <p class="text-slate-300 text-lg leading-relaxed mb-4">
+                        Hi, I’m Elias—an AWS enthusiast pursuing a degree apprenticeship in software engineering. Currently studying Computer Science at <span class="text-white font-semibold">Manchester College</span>.
+                    </p>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        I have a passion for serverless architectures and I'm actively learning <span class="text-[#FF9900]">Infrastructure as Code (IaC)</span> in my own time to bridge the gap between development and operations.
+                    </p>
+                </div>
+
+                <!-- CAROUSEL COMPONENT -->
+                <div class="relative h-80 w-full rounded-2xl overflow-hidden glass shadow-2xl reveal delay-200 group">
+                    <!-- Slides -->
+                    <div class="carousel-slide absolute inset-0 carousel-fade">
+                        <img src="https://media.licdn.com/dms/image/v2/D5622AQF9jXDg6WMh5Q/feedshare-shrink_2048_1536/B56ZY5LBrLGcAo-/0/1744715933562?e=1766620800&v=beta&t=RQXNcR6lazQ-z4Z9QECcL36-UbTwHcogP33uf7VO6K0" class="w-full h-full object-cover" alt="Natural Leader">
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
+                            <p class="text-sm font-semibold">Manchester College</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide absolute inset-0 hidden carousel-fade">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="Coding Session">
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
+                            <p class="text-sm font-semibold">Deep Work Session</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide absolute inset-0 hidden carousel-fade">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="Cloud Architecture">
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
+                            <p class="text-sm font-semibold">Cloud Infrastructure Design</p>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <button onclick="changeSlide(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full hover:bg-[#FF9900] transition text-white">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button onclick="changeSlide(1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full hover:bg-[#FF9900] transition text-white">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="mb-32 reveal">
+            <h2 class="text-3xl font-bold mb-8 text-center">Technical Arsenal</h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                <!-- Skill Tags -->
+                <span class="glass px-6 py-3 rounded-full text-[#FF9900] font-semibold hover:bg-[#FF9900] hover:text-black transition cursor-default">
+                    <i class="fab fa-aws mr-2"></i>AWS Cloud
+                </span>
+                <span class="glass px-6 py-3 rounded-full text-blue-400 font-semibold hover:bg-blue-400 hover:text-black transition cursor-default">
+                    <i class="fab fa-python mr-2"></i>Python
+                </span>
+                <span class="glass px-6 py-3 rounded-full text-yellow-400 font-semibold hover:bg-yellow-400 hover:text-black transition cursor-default">
+                    <i class="fab fa-js mr-2"></i>JavaScript
+                </span>
+                <span class="glass px-6 py-3 rounded-full text-orange-500 font-semibold hover:bg-orange-500 hover:text-black transition cursor-default">
+                    <i class="fab fa-html5 mr-2"></i>HTML5 / CSS3
+                </span>
+                <span class="glass px-6 py-3 rounded-full text-green-400 font-semibold hover:bg-green-400 hover:text-black transition cursor-default">
+                    <i class="fas fa-network-wired mr-2"></i>Cisco Packet Tracer
+                </span>
+                <span class="glass px-6 py-3 rounded-full text-purple-400 font-semibold hover:bg-purple-400 hover:text-black transition cursor-default">
+                    <i class="fas fa-tasks mr-2"></i>Project Management
+                </span>
+                <span class="glass px-6 py-3 rounded-full text-slate-300 font-semibold hover:bg-slate-300 hover:text-black transition cursor-default">
+                    <i class="fas fa-code-branch mr-2"></i>IaC
+                </span>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="mb-32 scroll-mt-20">
+            <h2 class="text-4xl font-bold mb-12 border-l-4 border-[#FF9900] pl-4">Featured Projects</h2>
+
+            <!-- Project 1 -->
+            <div class="group glass rounded-2xl p-8 mb-12 hover:border-[#FF9900]/50 transition duration-500 reveal">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="order-2 md:order-1">
+                        <div class="flex items-center gap-3 mb-4">
+                            <h3 class="text-2xl font-bold text-white">Akina - AI Discord Assistant</h3>
+                            <span class="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded border border-purple-500/30">Highlight</span>
+                        </div>
+                        <p class="text-slate-400 mb-6 leading-relaxed">
+                            A custom AI assistant for Discord, built with Python and hosted on AWS. It provides intelligent, 24/7 responses using natural language processing.
+                        </p>
+                        <div class="space-y-2 mb-6 text-sm text-slate-300">
+                            <p><i class="fas fa-check text-green-400 mr-2"></i>Intelligent natural language conversation</p>
+                            <p><i class="fas fa-check text-green-400 mr-2"></i>24/7 cloud-based availability (Serverless)</p>
+                            <p><i class="fas fa-check text-green-400 mr-2"></i>Robust error handling for APIs</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono text-[#FF9900]">
+                            <span class="bg-[#FF9900]/10 px-2 py-1 rounded">Python</span>
+                            <span class="bg-[#FF9900]/10 px-2 py-1 rounded">AWS Bedrock (Claude 3)</span>
+                            <span class="bg-[#FF9900]/10 px-2 py-1 rounded">Lambda</span>
+                            <span class="bg-[#FF9900]/10 px-2 py-1 rounded">API Gateway</span>
+                        </div>
+                    </div>
+                    <div class="order-1 md:order-2 overflow-hidden rounded-xl border border-white/10 relative">
+                        <!-- Placeholder for Project Image -->
+                        <img src="https://placehold.co/600x400/1e293b/FFF?text=Akina+AI+Interface" alt="Akina AI" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="group glass rounded-2xl p-8 hover:border-[#FF9900]/50 transition duration-500 reveal">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="overflow-hidden rounded-xl border border-white/10 relative">
+                        <!-- Placeholder for Project Image -->
+                        <img src="https://placehold.co/600x400/1e293b/FFF?text=AWS+Quiz+App" alt="AWS Quiz" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-4">AWS CCP Quiz</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed">
+                            A fully serverless, interactive study quiz for the AWS Certified Cloud Practitioner exam. Built with vanilla web technologies and delivered via global content delivery networks.
+                        </p>
+                        <div class="space-y-2 mb-6 text-sm text-slate-300">
+                            <p><i class="fas fa-bolt text-yellow-400 mr-2"></i>Static Website Hosting on S3</p>
+                            <p><i class="fas fa-globe text-blue-400 mr-2"></i>Low-latency delivery via CloudFront</p>
+                            <p><i class="fas fa-code text-pink-400 mr-2"></i>Vanilla JS (No frameworks)</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono text-[#FF9900]">
+                            <span class="bg-[#FF9900]/10 px-2 py-1 rounded">S3</span>
+                            <span class="bg-[#FF9900]/10 px-2 py-1 rounded">CloudFront</span>
+                            <span class="bg-[#FF9900]/10 px-2 py-1 rounded">HTML/CSS/JS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CERTIFICATIONS -->
+        <section id="certs" class="mb-20 reveal">
+            <h2 class="text-4xl font-bold mb-12 border-l-4 border-[#FF9900] pl-4">Certifications & Badges</h2>
+            
+            <div class="grid gap-6">
+                <!-- Cert 1 -->
+                <div class="glass p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center md:items-start transition hover:bg-white/5">
+                    <div class="w-24 h-24 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center p-2">
+                        <img src="https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Cloud-Practitioner_badge.634f8a21af2e0e956ed8905a72366146ba22b74c.png" alt="AWS CCP Badge" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">AWS Certified Cloud Practitioner</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Validates a foundational, high-level understanding of AWS Cloud, services, and terminology. It is a good starting point for technical roles new to the cloud.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Cert 2 -->
+                <div class="glass p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center md:items-start transition hover:bg-white/5">
+                    <div class="w-24 h-24 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center p-2">
+                        <img src="https://images.credly.com/images/075482df-3453-43f9-9069-b3917865c6f3/image.png" alt="AWS Compute" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">AWS Educate: Getting Started with Compute</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Demonstrates foundational knowledge of cloud compute services, covering concepts like virtual servers (Amazon EC2), serverless computing (AWS Lambda), and containerization.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Cert 3 -->
+                <div class="glass p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center md:items-start transition hover:bg-white/5">
+                    <div class="w-24 h-24 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center p-2">
+                        <img src="https://images.credly.com/images/318e8156-8208-4680-9285-d606b026601b/image.png" alt="AWS Storage" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">AWS Educate: Getting Started with Storage</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Awarded for completing the AWS Educate module on cloud storage, signifying an understanding of core storage services like Amazon S3, EBS, and EFS.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Cert 4 -->
+                <div class="glass p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center md:items-start transition hover:bg-white/5">
+                    <div class="w-24 h-24 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center p-2">
+                        <img src="https://images.credly.com/images/aead15d4-6202-4217-a068-d0144f89d31d/image.png" alt="Cloud 101" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">AWS Educate: Introduction to Cloud 101</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Completion of the introductory AWS Educate course, covering fundamental concepts of cloud computing, its advantages over traditional IT, and basic global infrastructure.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="mb-32 reveal">
+            <h2 class="text-4xl font-bold mb-12 border-l-4 border-[#FF9900] pl-4">Get In Touch</h2>
+            <div class="glass p-12 rounded-2xl text-center max-w-3xl mx-auto relative overflow-hidden">
+                <!-- Decorative background glow -->
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[#FF9900]/5 blur-3xl -z-10"></div>
+                
+                <h3 class="text-2xl font-bold text-white mb-4">Let's Connect</h3>
+                <p class="text-slate-300 text-lg mb-10 leading-relaxed">
+                    I'm currently looking for new opportunities in the cloud and tech industry. 
+                    Feel free to reach out if you want to discuss some work, or just say hi!
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="mailto:elias.bielskis@example.com" class="group bg-[#FF9900] text-black font-bold py-4 px-8 rounded-full hover:bg-[#FFC400] transition flex items-center justify-center gap-3">
+                        <i class="fas fa-envelope text-lg"></i> 
+                        <span>Email Me</span>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="group glass border border-slate-600 text-white font-bold py-4 px-8 rounded-full hover:border-[#0A66C2] hover:bg-[#0A66C2]/10 hover:text-[#0A66C2] transition flex items-center justify-center gap-3">
+                        <i class="fab fa-linkedin text-xl"></i> 
+                        <span>LinkedIn</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-slate-600 pb-8 text-sm">
+            <p>&copy; 2024 Elias Bielskis. Built with <span class="text-[#FF9900]">AWS</span> in mind.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- 1. CAROUSEL LOGIC ---
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function changeSlide(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("carousel-slide");
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slides[slideIndex-1].style.display = "block";  
+        }
+
+        // --- 2. SCROLL ANIMATION OBSERVER ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- 3. CANVAS BACKGROUND ANIMATION (Network Nodes) ---
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255, 153, 0, 0.3)'; // AWS Orange tint
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function initParticles() {
+            particles = [];
+            for(let i=0; i<60; i++) particles.push(new Particle());
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Gradient Background
+            const gradient = ctx.createRadialGradient(width/2, height/2, 0, width/2, height/2, width);
+            gradient.addColorStop(0, '#1e293b');
+            gradient.addColorStop(1, '#0f172a');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0,0,width,height);
+
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                // Draw connections
+                for (let j = index; j < particles.length; j++) {
+                    const dx = p.x - particles[j].x;
+                    const dy = p.y - particles[j].y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 150) {
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - dist/1500})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        
+        window.addEventListener('resize', () => { resize(); initParticles(); });
+        resize();
+        initParticles();
+        animate();
+    </script>
+</body>
+</html>
