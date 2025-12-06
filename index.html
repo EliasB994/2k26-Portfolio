@@ -11,7 +11,7 @@
 
         body {
             font-family: 'Outfit', sans-serif;
-            background-color: #0f172a;
+            background-color: #0f172a; /* Keep this as a fallback if video fails load */
             color: #e2e8f0;
             overflow-x: hidden;
         }
@@ -21,21 +21,24 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
-            z-index: -2;
-            opacity: 0.6;
+            /* --- CHANGED: Moved to -3 to sit behind everything --- */
+            z-index: -3; 
+            opacity: 1; /* Make fully visible, the overlay will handle dimming */
         }
         
         #canvas-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            /* --- CHANGED: Sit above video (-3) but below content --- */
+            z-index: -2; 
+            /* --- REMOVED: The CSS background gradient that was hiding the video --- */
         }
 
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.85); /* Dark tint */
+            /* Adjust the 0.85 value to make video brighter/darker */
+            background: rgba(15, 23, 42, 0.85); 
             z-index: -1;
             backdrop-filter: blur(2px);
         }
@@ -91,21 +94,16 @@
 </head>
 <body>
 
-    <!-- VIDEO BACKGROUND PLACEHOLDER (Uncomment to use real video) -->
-    <!-- <video autoplay muted loop id="bg-video">
-        <source src="your-cloud-video.mp4" type="video/mp4">
-    </video> -->
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="assets/video/background.mp4" type="video/mp4">
+    </video> 
 
-    <!-- CANVAS FALLBACK ANIMATION (Simulating Cloud Nodes) -->
     <canvas id="canvas-bg"></canvas>
     
-    <!-- DARK OVERLAY -->
     <div class="overlay"></div>
 
-    <!-- MAIN CONTENT -->
     <main class="relative z-10 container mx-auto px-6 py-12 max-w-6xl">
 
-        <!-- NAV -->
         <nav class="flex justify-between items-center mb-20 reveal">
             <div class="text-2xl font-bold tracking-tighter">EB<span class="text-[#FF9900]">.</span></div>
             <div class="space-x-8 hidden md:block text-sm font-semibold tracking-wide text-slate-400">
@@ -117,26 +115,35 @@
             </div>
         </nav>
 
-        <!-- HERO -->
-        <header class="min-h-[70vh] flex flex-col justify-center items-start reveal">
-            <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-[#FF9900] border border-[#FF9900] rounded-full bg-[#FF9900]/10">
-                AWS CERTIFIED
+        <header class="min-h-[70vh] grid md:grid-cols-2 gap-8 items-center reveal">
+            
+            <div class="flex flex-col justify-center items-start">
+                <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-[#FF9900] border border-[#FF9900] rounded-full bg-[#FF9900]/10">
+                    AWS CERTIFIED
+                </div>
+                <h1 class="text-6xl md:text-8xl font-extrabold leading-tight mb-6">
+                    Hello, I'm <br>
+                    <span class="text-gradient">Elias Bielskis</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-400 max-w-2xl leading-relaxed mb-8">
+                    Computer Science Student & Aspiring <span class="text-white">Cloud Solutions Architect</span>. 
+                    Building the future on AWS, one minimalist solution at a time.
+                </p>
+                <a href="#projects" class="group glass px-8 py-3 rounded-full font-bold transition hover:scale-105 flex items-center gap-2">
+                    View Projects 
+                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
             </div>
-            <h1 class="text-6xl md:text-8xl font-extrabold leading-tight mb-6">
-                Hello, I'm <br>
-                <span class="text-gradient">Elias Bielskis</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-slate-400 max-w-2xl leading-relaxed mb-8">
-                Computer Science Student & Aspiring <span class="text-white">Cloud Solutions Architect</span>. 
-                Building the future on AWS, one minimalist solution at a time.
-            </p>
-            <a href="#projects" class="group glass px-8 py-3 rounded-full font-bold transition hover:scale-105 flex items-center gap-2">
-                View Projects 
-                <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-            </a>
+
+            <div class="flex justify-center md:justify-end items-center">
+                <div class="glass p-2 rounded-lg bg-white/5">
+                    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+                    <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="dark" data-type="HORIZONTAL" data-vanity="elias-bielskis" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://uk.linkedin.com/in/elias-bielskis?trk=profile-badge"></a></div>
+                </div>
+            </div>
+
         </header>
 
-        <!-- ABOUT & CAROUSEL -->
         <section id="about" class="mb-32 scroll-mt-20">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="reveal">
@@ -149,29 +156,26 @@
                     </p>
                 </div>
 
-                <!-- CAROUSEL COMPONENT -->
                 <div class="relative h-80 w-full rounded-2xl overflow-hidden glass shadow-2xl reveal delay-200 group">
-                    <!-- Slides -->
                     <div class="carousel-slide absolute inset-0 carousel-fade">
                         <img src="https://media.licdn.com/dms/image/v2/D5622AQF9jXDg6WMh5Q/feedshare-shrink_2048_1536/B56ZY5LBrLGcAo-/0/1744715933562?e=1766620800&v=beta&t=RQXNcR6lazQ-z4Z9QECcL36-UbTwHcogP33uf7VO6K0" class="w-full h-full object-cover" alt="Natural Leader">
                         <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
-                            <p class="text-sm font-semibold">Manchester College</p>
+                            <p class="text-sm font-semibold">A Natural Leader</p>
                         </div>
                     </div>
                     <div class="carousel-slide absolute inset-0 hidden carousel-fade">
-                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="Coding Session">
+                        <img src="https://media.discordapp.net/attachments/1269337625991577700/1443707679896899726/image.jpg?ex=6933f04d&is=69329ecd&hm=34fbad28d336b7a6194ca956e06af4b669dc543eea89c863df642b468cb10ada&=&format=webp&width=664&height=885" class="w-full h-full object-cover" alt="Coding Session">
                         <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
-                            <p class="text-sm font-semibold">Deep Work Session</p>
+                            <p class="text-sm font-semibold">My Evenings</p>
                         </div>
                     </div>
                     <div class="carousel-slide absolute inset-0 hidden carousel-fade">
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="Cloud Architecture">
+                        <img src="https://media.licdn.com/dms/image/v2/D5622AQEW4ARp5ICnsw/feedshare-shrink_2048_1536/B56ZnAxwRsH8Aw-/0/1759875894166?e=1766620800&v=beta&t=7PBb8oOhFYDXGd9Vh2wJoXJdIqtXYAUqHZZuUQYsxUk" class="w-full h-full object-cover" alt="Cloud Architecture">
                         <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
-                            <p class="text-sm font-semibold">Cloud Infrastructure Design</p>
+                            <p class="text-sm font-semibold">Driven by Innovation</p>
                         </div>
                     </div>
 
-                    <!-- Controls -->
                     <button onclick="changeSlide(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full hover:bg-[#FF9900] transition text-white">
                         <i class="fas fa-chevron-left"></i>
                     </button>
@@ -182,11 +186,9 @@
             </div>
         </section>
 
-        <!-- SKILLS -->
         <section id="skills" class="mb-32 reveal">
             <h2 class="text-3xl font-bold mb-8 text-center">Technical Arsenal</h2>
             <div class="flex flex-wrap justify-center gap-4">
-                <!-- Skill Tags -->
                 <span class="glass px-6 py-3 rounded-full text-[#FF9900] font-semibold hover:bg-[#FF9900] hover:text-black transition cursor-default">
                     <i class="fab fa-aws mr-2"></i>AWS Cloud
                 </span>
@@ -197,7 +199,7 @@
                     <i class="fab fa-js mr-2"></i>JavaScript
                 </span>
                 <span class="glass px-6 py-3 rounded-full text-orange-500 font-semibold hover:bg-orange-500 hover:text-black transition cursor-default">
-                    <i class="fab fa-html5 mr-2"></i>HTML5 / CSS3
+                    <i class="fab fa-html5 mr-2"></i>HTML / CSS
                 </span>
                 <span class="glass px-6 py-3 rounded-full text-green-400 font-semibold hover:bg-green-400 hover:text-black transition cursor-default">
                     <i class="fas fa-network-wired mr-2"></i>Cisco Packet Tracer
@@ -211,11 +213,9 @@
             </div>
         </section>
 
-        <!-- PROJECTS -->
         <section id="projects" class="mb-32 scroll-mt-20">
             <h2 class="text-4xl font-bold mb-12 border-l-4 border-[#FF9900] pl-4">Featured Projects</h2>
 
-            <!-- Project 1 -->
             <div class="group glass rounded-2xl p-8 mb-12 hover:border-[#FF9900]/50 transition duration-500 reveal">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="order-2 md:order-1">
@@ -239,19 +239,16 @@
                         </div>
                     </div>
                     <div class="order-1 md:order-2 overflow-hidden rounded-xl border border-white/10 relative">
-                        <!-- Placeholder for Project Image -->
-                        <img src="https://placehold.co/600x400/1e293b/FFF?text=Akina+AI+Interface" alt="Akina AI" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                        <img src="https://media.discordapp.net/attachments/1434700416398131231/1446595050946691232/image.png?ex=69348e20&is=69333ca0&hm=9d6527bb35b8c3d8ec66276f7d502ba1ba09571822ac58f51026313e03772498&=&format=webp&quality=lossless" alt="Akina AI" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Project 2 -->
             <div class="group glass rounded-2xl p-8 hover:border-[#FF9900]/50 transition duration-500 reveal">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="overflow-hidden rounded-xl border border-white/10 relative">
-                        <!-- Placeholder for Project Image -->
-                        <img src="https://placehold.co/600x400/1e293b/FFF?text=AWS+Quiz+App" alt="AWS Quiz" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                        <img src="https://media.discordapp.net/attachments/1434700416398131231/1446597244659957840/image.png?ex=6934902b&is=69333eab&hm=42fc9caa39c2c23945f3995e6075cea4635628a7a528f7ebc2e54428dfa8921d&=&format=webp&quality=lossless&width=1388&height=780" alt="AWS Quiz" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60"></div>
                     </div>
                     <div>
@@ -274,12 +271,10 @@
             </div>
         </section>
 
-        <!-- CERTIFICATIONS -->
         <section id="certs" class="mb-20 reveal">
             <h2 class="text-4xl font-bold mb-12 border-l-4 border-[#FF9900] pl-4">Certifications & Badges</h2>
             
             <div class="grid gap-6">
-                <!-- Cert 1 -->
                 <div class="glass p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center md:items-start transition hover:bg-white/5">
                     <div class="w-24 h-24 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center p-2">
                         <img src="https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Cloud-Practitioner_badge.634f8a21af2e0e956ed8905a72366146ba22b74c.png" alt="AWS CCP Badge" class="w-full h-full object-contain">
@@ -292,10 +287,9 @@
                     </div>
                 </div>
 
-                <!-- Cert 2 -->
                 <div class="glass p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center md:items-start transition hover:bg-white/5">
                     <div class="w-24 h-24 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center p-2">
-                        <img src="https://images.credly.com/images/075482df-3453-43f9-9069-b3917865c6f3/image.png" alt="AWS Compute" class="w-full h-full object-contain">
+                        <img src="https://images.credly.com/size/340x340/images/7b08cc0e-064b-407d-b70e-323509c3e474/blob" alt="AWS Compute" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <h3 class="text-xl font-bold text-white mb-2">AWS Educate: Getting Started with Compute</h3>
@@ -305,23 +299,21 @@
                     </div>
                 </div>
 
-                <!-- Cert 3 -->
                 <div class="glass p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center md:items-start transition hover:bg-white/5">
                     <div class="w-24 h-24 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center p-2">
-                        <img src="https://images.credly.com/images/318e8156-8208-4680-9285-d606b026601b/image.png" alt="AWS Storage" class="w-full h-full object-contain">
+                        <img src="https://images.credly.com/size/340x340/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png" alt="AWS Storage" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-white mb-2">AWS Educate: Getting Started with Storage</h3>
+                        <h3 class="text-xl font-bold text-white mb-2">Introduction to Cybersecurity</h3>
                         <p class="text-slate-400 text-sm leading-relaxed">
-                            Awarded for completing the AWS Educate module on cloud storage, signifying an understanding of core storage services like Amazon S3, EBS, and EFS.
+                            This badge validates introductory knowledge of cybersecurity, including threat detection, defense mechanisms, and the global impact of cyber threats.
                         </p>
                     </div>
                 </div>
 
-                <!-- Cert 4 -->
                 <div class="glass p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center md:items-start transition hover:bg-white/5">
                     <div class="w-24 h-24 flex-shrink-0 bg-white/10 rounded-full flex items-center justify-center p-2">
-                        <img src="https://images.credly.com/images/aead15d4-6202-4217-a068-d0144f89d31d/image.png" alt="Cloud 101" class="w-full h-full object-contain">
+                        <img src="https://images.credly.com/size/340x340/images/e51a8579-188d-4363-8ed1-12ad164ef57b/blob" alt="Cloud 101" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <h3 class="text-xl font-bold text-white mb-2">AWS Educate: Introduction to Cloud 101</h3>
@@ -333,11 +325,9 @@
             </div>
         </section>
 
-        <!-- CONTACT -->
         <section id="contact" class="mb-32 reveal">
             <h2 class="text-4xl font-bold mb-12 border-l-4 border-[#FF9900] pl-4">Get In Touch</h2>
             <div class="glass p-12 rounded-2xl text-center max-w-3xl mx-auto relative overflow-hidden">
-                <!-- Decorative background glow -->
                 <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[#FF9900]/5 blur-3xl -z-10"></div>
                 
                 <h3 class="text-2xl font-bold text-white mb-4">Let's Connect</h3>
@@ -346,13 +336,9 @@
                     Feel free to reach out if you want to discuss some work, or just say hi!
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-6">
-                    <a href="mailto:elias.bielskis@example.com" class="group bg-[#FF9900] text-black font-bold py-4 px-8 rounded-full hover:bg-[#FFC400] transition flex items-center justify-center gap-3">
+                    <a href="mailto:eliasbielskis08@gmail.com" class="group bg-[#FF9900] text-black font-bold py-4 px-8 rounded-full hover:bg-[#FFC400] transition flex items-center justify-center gap-3">
                         <i class="fas fa-envelope text-lg"></i> 
-                        <span>Email Me</span>
-                    </a>
-                    <a href="https://linkedin.com" target="_blank" class="group glass border border-slate-600 text-white font-bold py-4 px-8 rounded-full hover:border-[#0A66C2] hover:bg-[#0A66C2]/10 hover:text-[#0A66C2] transition flex items-center justify-center gap-3">
-                        <i class="fab fa-linkedin text-xl"></i> 
-                        <span>LinkedIn</span>
+                        <span>Email Me!</span>
                     </a>
                 </div>
             </div>
@@ -437,14 +423,10 @@
         }
         
         function animate() {
+            /* --- CHANGED: Clear rect instead of painting a background --- */
             ctx.clearRect(0, 0, width, height);
             
-            // Gradient Background
-            const gradient = ctx.createRadialGradient(width/2, height/2, 0, width/2, height/2, width);
-            gradient.addColorStop(0, '#1e293b');
-            gradient.addColorStop(1, '#0f172a');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0,0,width,height);
+            /* --- REMOVED: Gradient background painting block --- */
 
             particles.forEach((p, index) => {
                 p.update();
